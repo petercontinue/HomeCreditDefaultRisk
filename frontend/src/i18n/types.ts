@@ -82,6 +82,19 @@ export type Dict = {
     next: string;
     submit: string;
     assessing: string;
+    consentBefore: string;
+    consentLink: string;
+    consentAfter: string;
+    consentRequired: string;
+  };
+  privacy: {
+    navLink: string;
+    title: string;
+    lastUpdated: string;
+    versionLabel: string;
+    intro: string;
+    sections: { heading: string; body: string }[];
+    back: string;
   };
   result: {
     title: string;
@@ -104,5 +117,10 @@ export type Dict = {
   common: {
     language: string;
     requestFailed: string;
+    privacy: string;
   };
 };
+
+/** Must match backend PRIVACY_NOTICE_VERSION */
+export const PRIVACY_NOTICE_VERSION = "1.0.0";
+

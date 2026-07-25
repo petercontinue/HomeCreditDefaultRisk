@@ -18,6 +18,8 @@ Users fill in about **25 personal and loan fields** (no login required). The sys
 - Business decision layer: approval threshold + max-amount search  
 - Responsive React UI (desktop / tablet / mobile)  
 - Multilingual UI & API feedback: **English**, **Simplified Chinese**, **Traditional Chinese**, **Japanese**, **Korean**  
+- **Privacy Notice** page and mandatory consent checkbox (aligned with NZ Privacy Act 2020 information privacy principles for this demo)  
+- Consent audit fields stored with each submission (`consent_accepted`, `privacy_notice_version`, `consent_accepted_at`)  
 - PostgreSQL persistence for each assessment  
 - Local frontend/backend; Docker only for PostgreSQL  
 - One-click Windows start/stop scripts (`.cmd`)
@@ -440,3 +442,25 @@ copy frontend\.env.example frontend\.env
 - Code in this repository: for educational / demo use unless otherwise stated.  
 - Dataset: Home Credit Default Risk (Kaggle). Follow Kaggle’s and Home Credit’s data usage terms.  
 - Do not deploy this demo as a production credit decision engine without proper compliance, model governance, and legal review.
+
+
+
+## Screenshots
+
+![image-20260726112115134](README.assets/image-20260726112115134.png)
+
+
+
+![image-20260726112232825](README.assets/image-20260726112232825.png)
+
+
+
+![image-20260726112254002](README.assets/image-20260726112254002.png)
+
+
+
+![image-20260726112307835](README.assets/image-20260726112307835.png)
+
+
+
+![image-20260726112325676](README.assets/image-20260726112325676.png)

@@ -237,6 +237,20 @@ MESSAGES: dict[str, dict[str, str]] = {
         "ja": "申請が見つかりません",
         "ko": "신청을 찾을 수 없습니다",
     },
+    "err_consent_required": {
+        "en": "You must accept the Privacy Notice before submitting.",
+        "zh-CN": "提交前必须勾选同意隐私说明。",
+        "zh-TW": "提交前必須勾選同意隱私說明。",
+        "ja": "送信前にプライバシー通知への同意が必要です。",
+        "ko": "제출 전에 개인정보 안내에 동의해야 합니다.",
+    },
+    "err_privacy_version": {
+        "en": "Privacy Notice version is missing or outdated. Please review the latest notice.",
+        "zh-CN": "隐私说明版本缺失或已过期，请阅读最新说明后再提交。",
+        "zh-TW": "隱私說明版本缺失或已過期，請閱讀最新說明後再提交。",
+        "ja": "プライバシー通知のバージョンが未指定または古いです。最新版を確認してください。",
+        "ko": "개인정보 안내 버전이 없거나 오래되었습니다. 최신 안내를 확인하세요.",
+    },
 }
 
 

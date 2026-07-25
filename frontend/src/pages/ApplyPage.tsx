@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { fetchFormOptions, submitPrediction } from "../api/client";
 import { useI18n } from "../i18n/I18nProvider";
+import { PRIVACY_NOTICE_VERSION } from "../i18n/types";
 import { defaultFormValues, type LoanFormValues } from "../types/form";
 
 const WEEKDAYS = [
@@ -23,6 +24,7 @@ export function ApplyPage() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [step, setStep] = useState(0);
+  const [consentAccepted, setConsentAccepted] = useState(false);
 
   const {
     register,
@@ -41,6 +43,10 @@ export function ApplyPage() {
   }, []);
 
   const onSubmit = async (values: LoanFormValues) => {
+    if (!consentAccepted) {
+      setError(t.apply.consentRequired);
+      return;
+    }
     setSubmitting(true);
     setError(null);
     try {
@@ -53,6 +59,8 @@ export function ApplyPage() {
           occupation_type: values.occupation_type || null,
           weekday_appr_process_start: weekday,
           lang: locale,
+          consent_accepted: true,
+          privacy_notice_version: PRIVACY_NOTICE_VERSION,
         },
         locale,
       );
@@ -320,6 +328,21 @@ export function ApplyPage() {
               </label>
             </div>
             <p className="hint">{t.apply.annuityHint}</p>
+
+            <label className="consent-box">
+              <input
+                type="checkbox"
+                checked={consentAccepted}
+                onChange={(e) => setConsentAccepted(e.target.checked)}
+              />
+              <span>
+                {t.apply.consentBefore}{" "}
+                <Link to="/privacy" target="_blank" rel="noreferrer">
+                  {t.apply.consentLink}
+                </Link>{" "}
+                {t.apply.consentAfter}
+              </span>
+            </label>
           </section>
         )}
 
@@ -341,7 +364,11 @@ export function ApplyPage() {
               {t.apply.next}
             </button>
           ) : (
-            <button type="submit" className="btn btn-primary" disabled={submitting}>
+            <button
+              type="submit"
+              className="btn btn-primary"
+              disabled={submitting || !consentAccepted}
+            >
               {submitting ? t.apply.assessing : t.apply.submit}
             </button>
           )}

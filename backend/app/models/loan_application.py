@@ -28,3 +28,8 @@ class LoanApplication(Base):
     feedback_json: Mapped[dict] = mapped_column(JSONB, nullable=False)
     model_version: Mapped[str] = mapped_column(String(64), nullable=False)
     client_meta: Mapped[str | None] = mapped_column(Text, nullable=True)
+    consent_accepted: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    privacy_notice_version: Mapped[str] = mapped_column(String(32), nullable=False, default="")
+    consent_accepted_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )

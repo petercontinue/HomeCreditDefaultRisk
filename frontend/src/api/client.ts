@@ -27,6 +27,8 @@ export type ApplicationPayload = {
   flag_work_phone: boolean;
   weekday_appr_process_start: string | null;
   lang?: string;
+  consent_accepted: boolean;
+  privacy_notice_version: string;
 };
 
 export type PredictionResult = {

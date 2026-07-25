@@ -7,9 +7,14 @@ export function AppHeader() {
 
   return (
     <header className="app-header">
-      <Link to="/" className="app-header-brand">
-        {t.brand}
-      </Link>
+      <div className="app-header-left">
+        <Link to="/" className="app-header-brand">
+          {t.brand}
+        </Link>
+        <Link to="/privacy" className="app-header-link">
+          {t.privacy.navLink}
+        </Link>
+      </div>
       <LanguageSwitcher />
     </header>
   );

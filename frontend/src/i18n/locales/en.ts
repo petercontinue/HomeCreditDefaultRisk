@@ -67,6 +67,50 @@ const en: Dict = {
     next: "Next",
     submit: "Submit Assessment",
     assessing: "Assessing…",
+    consentBefore: "I have read the",
+    consentLink: "Privacy Notice",
+    consentAfter:
+      "and agree to the collection and use of my information for this demo loan assessment under the New Zealand Privacy Act 2020 principles described there.",
+    consentRequired: "You must accept the Privacy Notice before submitting.",
+  },
+  privacy: {
+    navLink: "Privacy",
+    title: "Privacy Notice",
+    lastUpdated: "Last updated: 26 July 2026",
+    versionLabel: "Notice version",
+    intro:
+      "This notice explains how HomeCredit Scout (the “Demo”) collects and uses personal information. It is designed with the information privacy principles in New Zealand’s Privacy Act 2020 in mind. This Demo is for education only and is not a real credit provider.",
+    sections: [
+      {
+        heading: "1. Who holds your information",
+        body: "Information submitted through this Demo is processed by the Demo operator for local demonstration purposes. Contact the operator of this deployment if you have privacy questions or wish to request access or correction.",
+      },
+      {
+        heading: "2. What we collect",
+        body: "We collect the information you enter in the assessment form (for example age, family and housing details, income and employment information, loan amount preferences, and whether you indicated that contact details would be provided). We do not ask you to type an email address or phone number into free-text fields. We may also store technical metadata such as browser user-agent, language preference, consent status, and timestamps.",
+      },
+      {
+        heading: "3. Purpose of collection",
+        body: "We collect this information solely to run a machine-learning demo that estimates default risk, generate an approve/decline illustration and feedback text, and improve or audit the Demo. We do not use your submission for real lending, marketing lists, or sale to third parties.",
+      },
+      {
+        heading: "4. Voluntary participation",
+        body: "Providing information is voluntary. If you do not agree to this notice, do not submit the form. You may browse the Demo pages without submitting an assessment.",
+      },
+      {
+        heading: "5. Storage, security, and retention",
+        body: "Submissions are stored in a PostgreSQL database used by this Demo. Reasonable technical safeguards are applied for a development/demo environment, but this is not a production banking system. Records may be retained for a limited demo/audit period and then deleted or anonymised. Operators may clear demo databases periodically.",
+      },
+      {
+        heading: "6. Access and correction",
+        body: "Under the Privacy Act 2020 you may request access to, or correction of, personal information held about you. Because this Demo does not create user accounts, please contact the Demo operator and provide your application ID (shown on the result page) where possible.",
+      },
+      {
+        heading: "7. Important limitations",
+        body: "Outputs are illustrative only and are not credit advice, a consumer credit contract, or a decision by a lender. Do not submit real identity documents, passwords, or unnecessary sensitive information.",
+      },
+    ],
+    back: "Back",
   },
   result: {
     title: "Assessment Result",
@@ -89,6 +133,7 @@ const en: Dict = {
   common: {
     language: "Language",
     requestFailed: "Request failed",
+    privacy: "Privacy",
   },
 };
 

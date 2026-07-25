@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from datetime import datetime, timezone
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, Header, HTTPException, Request
@@ -8,6 +9,7 @@ from sqlalchemy.orm import Session
 from app.db.session import get_db
 from app.i18n.messages import normalize_lang, t
 from app.models.loan_application import LoanApplication
+from app.privacy import PRIVACY_NOTICE_VERSION
 from app.schemas.prediction import (
     ApplicationInput,
     FeedbackOut,
@@ -64,6 +66,14 @@ def languages() -> dict:
     }
 
 
+@router.get("/meta/privacy")
+def privacy_meta() -> dict:
+    return {
+        "privacy_notice_version": PRIVACY_NOTICE_VERSION,
+        "path": "/privacy",
+    }
+
+
 @router.post("/predict", response_model=PredictionOut)
 def predict(
     body: ApplicationInput,
@@ -76,10 +86,17 @@ def predict(
     lang = resolve_lang(body.lang, x_lang, accept_language)
     payload = body.model_dump()
     payload.pop("lang", None)
+    # Strip consent flags from feature payload used by the model
+    model_payload = {
+        k: v
+        for k, v in payload.items()
+        if k not in {"consent_accepted", "privacy_notice_version"}
+    }
+    consent_at = datetime.now(timezone.utc)
 
-    result = evaluate_application(payload)
+    result = evaluate_application(model_payload)
     feedback = build_feedback(
-        payload,
+        model_payload,
         approved=result["approved"],
         default_probability=result["default_probability"],
         risk_level=result["risk_level"],
@@ -88,7 +105,7 @@ def predict(
     )
 
     row = LoanApplication(
-        input_json={**payload, "lang": lang},
+        input_json={**model_payload, "lang": lang},
         requested_amount=result["requested_amount"],
         default_probability=result["default_probability"],
         approved=result["approved"],
@@ -97,6 +114,9 @@ def predict(
         feedback_json=feedback,
         model_version=result["model_version"],
         client_meta=request.headers.get("user-agent"),
+        consent_accepted=True,
+        privacy_notice_version=body.privacy_notice_version,
+        consent_accepted_at=consent_at,
     )
     db.add(row)
     db.commit()

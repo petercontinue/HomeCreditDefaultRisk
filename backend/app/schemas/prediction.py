@@ -7,6 +7,7 @@ from uuid import UUID
 from pydantic import BaseModel, Field, model_validator
 
 from app.i18n.messages import normalize_lang, t
+from app.privacy import PRIVACY_NOTICE_VERSION
 
 
 class ApplicationInput(BaseModel):
@@ -36,11 +37,17 @@ class ApplicationInput(BaseModel):
     flag_work_phone: bool = False
     weekday_appr_process_start: str | None = None
     lang: str = "en"
+    consent_accepted: bool = False
+    privacy_notice_version: str = ""
 
     @model_validator(mode="after")
     def validate_relationships(self) -> ApplicationInput:
         self.lang = normalize_lang(self.lang)
         lang = self.lang
+        if not self.consent_accepted:
+            raise ValueError(t("err_consent_required", lang))
+        if self.privacy_notice_version != PRIVACY_NOTICE_VERSION:
+            raise ValueError(t("err_privacy_version", lang))
         if self.cnt_fam_members < self.cnt_children + 1:
             raise ValueError(t("err_family_members", lang))
         if self.flag_own_car == "Y" and self.own_car_age is None:

@@ -17,6 +17,9 @@ export function HomePage() {
           <a className="btn btn-ghost" href="#how">
             {t.home.how}
           </a>
+          <Link className="btn btn-ghost" to="/privacy">
+            {t.privacy.navLink}
+          </Link>
         </div>
         <p className="disclaimer">{t.home.disclaimer}</p>
       </section>
