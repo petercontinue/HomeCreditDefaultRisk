@@ -1,0 +1,18 @@
+{
+  "model_version": "v1.0.0",
+  "train_rows": 246005,
+  "valid_rows": 61502,
+  "train_auc": 0.7845771935753061,
+  "valid_auc": 0.6886852572425324,
+  "best_iteration": 275,
+  "approval_threshold": 0.25,
+  "threshold_tuning": {
+    "threshold": 0.25,
+    "target_approval_rate": 0.7,
+    "actual_approval_rate": 0.6283860687457319,
+    "reject_default_rate": 0.13476263399693722,
+    "default_catch_rate": 0.6203423967774421,
+    "fallback_threshold": 0.15
+  },
+  "positive_rate": 0.08072986956394489
+}

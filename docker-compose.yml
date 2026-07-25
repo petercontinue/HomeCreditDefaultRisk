@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: hcdr-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: hcdr
+      POSTGRES_PASSWORD: hcdr_pass
+      POSTGRES_DB: hcdr
+    ports:
+      - "6436:5432"
+    volumes:
+      - hcdr_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hcdr -d hcdr"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  hcdr_pgdata:
